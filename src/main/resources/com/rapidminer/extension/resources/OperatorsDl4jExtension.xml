@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<operators name="template" version="6.0" docbundle="com/rapidminer/extension/resources/i18n/OperatorsDocTemplate">
+    <group key="">
+         <group key="dl4j">
+         
+         	<group key ="learner">
+        		<operator>
+          			<key>simple_neural_network</key>
+         			<class>com.rapidminerchina.extension.dl4j.learners.SimpleNeuralNetwork</class>
+         		</operator>
+         	
+         		<operator>
+          			<key>convolutional_neural_network</key>
+         			<class>com.rapidminerchina.extension.dl4j.learners.ConvolutionalNeuralNetwork</class>
+         		</operator>
+         	</group>
+         	
+         	<group key="word2vec">
+         	    <operator>
+         			<key>word_2_vec</key>
+         			<class>com.rapidminerchina.extension.dl4j.word2vec.Word2VecLearner</class>
+         		</operator>
+         	</group>
+         	
+         	<group key="layers">
+         		<operator>
+         			<key>rbm_layer</key>
+         			<class>com.rapidminerchina.extension.dl4j.layers.RBMLayer</class>
+         		</operator>
+         		
+         		<operator>
+         			<key>dense_layer</key>
+         			<class>com.rapidminerchina.extension.dl4j.layers.DenseLayer</class>
+         		</operator>
+         		
+         		<operator>
+         			<key>output_layer</key>
+         			<class>com.rapidminerchina.extension.dl4j.layers.OutputLayer</class>
+         		</operator>
+         		
+         		<operator>
+         			<key>convolutional_layer</key>
+         			<class>com.rapidminerchina.extension.dl4j.layers.ConvolutionalLayer</class>
+         		</operator>
+         		
+         		<operator>
+         			<key>subsampling_layer</key>
+         			<class>com.rapidminerchina.extension.dl4j.layers.SubSamplingLayer</class>
+         		</operator>
+         	</group>
+         	
+         </group>
+    </group>
+    
+</operators>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+
+<operatorHelp lang="en_EN">
+
+  
+
+    <group>
+
+    	<key>dl4j</key>
+
+    	<name>DL4J</name>
+
+    </group>
+
+    
+
+    <group>
+
+    	<key>learner</key>
+
+    	<name>Model</name>
+
+    </group>
+
+    
+
+    <group>
+
+		<key>layers</key>
+
+		<name>Layers</name>
+
+	</group>
+
+    
+
+    <group>
+
+		<key>word2vec</key>
+
+		<name>Word2Vec</name>
+		</group>
+
+    
+
+    <operator>
+
+    	<key>simple_neural_network</key>
+
+    	<name>Multilayer Neural Network</name>    	
+    	<synopsis>This operator is a nested operator,can contains different layers such as RBM layer,Dense Layer,Output Layer(but except Convolutional Layer and Subsampling Layer).This operator cannot handle polyminal attributes. </synopsis>
+    	<help> Multilayer Neural Network(also called Multilayer Perceptron) is a feedforward artificial neural network model that maps sets of input data onto a set of appropriate outputs.  An MLP consists of multiple layers of nodes in a directed graph, with each layer fully connected to the next one. Except for the input nodes, each node is a neuron (or processing element) with a nonlinear activation function. MLP utilizes a supervised learning technique called backpropagation for training the network.MLP is a modification of the standard linear perceptron and can distinguish data that are not linearly separable.&lt;br&gt;
+ &lt;ul&gt;   	
+  &lt;li&gt; &lt;strong&gt;Activation function&lt;/strong&gt;&lt;br&gt;	
+    	If a multilayer perceptron has a linear activation function in all neurons,that is, a linear function that maps the wighted inputs to the output of each neuron,then it is easily proved with linear algebra that any number of layers can be reduced to the standard two-layer input-output model(see perceptron).What makes a multilayer perceptron different is that some neurons use a nonlinear activation function which was developed to model the frequency of action potentions,or firing,of biological neurons in the brain.&lt;/li&gt;&lt;br&gt;
+
+    	
+   &lt;li&gt;&lt;strong&gt;Layers&lt;/strong&gt;&lt;br&gt;	
+   The multilayer perceptron consists of three or more layers (an input and an output layer with one or more hidden layers) of nonlinearly-activating nodes and is thus considered a deep neural network. Since an MLP is a Fully Connected Network, each node in one layer connects with a certain weight w&lt;SUB&gt;{ij} &lt;/SUB&gt; to every node in the following layer. Some people do not include the input layer when counting the number of layers and there is disagreement about whether w&lt;SUB&gt;{ij} &lt;/SUB&gt;  should be interpreted as the weight from i to j or the other way around.&lt;/li&gt;&lt;br&gt;	
+ 
+ &lt;li&gt; &lt;strong&gt;Learning through backpropagation&lt;/strong&gt;&lt;br&gt;	
+ Learning occurs in the perceptron by changing connection weights after each piece of data is processed, based on the amount of error in the output compared to the expected result. This is an example of supervised learning, and is carried out through backpropagation, a generalization of the least mean squares algorithm in the linear perceptron.&lt;/li&gt;&lt;br&gt;	
+   &lt;/ul&gt;   	  	
+    	</help>
+
+    </operator>estricted Boltzmann machine (RBM) is a generative stochastic artificial neural network that can learn a probability distribution over its set of inputs.
+
+    
+
+    <operator>
+
+    	<key>convolutional_neural_network</key>
+
+    	<name>Convolutional Neural Network</name> 
+
+    	<synopsis> The Convolutional Neural Network operator is a nested operator,can contain two types of operators:layers(such as RBM Layer,Dense Layer,Output Layer,Convolutional Layer and Subsampling Layer ) and subprocess(in the subprocess,only layers can be put). Convolution Neural Network(CNN,or ConvNet) is a type of feed-forward artificial neural network.This operator cannot handle polynominal attributes. The relationship of operators which are nested in this operator is to demonstrate the structure of the Neural Net</synopsis>
+
+    	 <help>Convolutional Neural Network(CNN,or ConvNet) is a type of feed-forward artificial neural network in which the connectivity pattern between its neurons is inspired by the organization of the animal visual cortex,whose individual neurons are arranged in such a way that they respond to overlapping regions tiling the visual field. The convolutional neural network is wide applied in image and video recognition,recommender system and natural language process.&lt;br&gt;
+
+
+&lt;ol&gt;&lt;li&gt;&lt;
+&lt;strong&gt;Distinguishing features&lt;/strong&gt;&lt;br&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;3D volumes of neurons:&lt;/strong&gt; The layers of a CNN have neurons arranged in 3 dimensions: width, height and depth. The neurons inside a layer are only connected to a small region of the layer before it, called a receptive field. Distinct types of layers, both locally and completely connected, are stacked to form a CNN architecture&lt;/li&gt;&lt;br&gt;
+
+&lt;li&gt;&lt;strong&gt;Local connectivity:&lt;/strong&gt;following the concept of receptive fields, CNNs exploit spatially local correlation by enforcing a local connectivity pattern between neurons of adjacent layers. The architecture thus ensures that the learnt "filters" produce the strongest response to a spatially local input pattern. Stacking many such layers leads to non-linear "filters" that become increasingly "global" (i.e. responsive to a larger region of pixel space). This allows the network to first create good representations of small parts of the input, then assemble representations of larger areas from them.&lt;/li&gt;&lt;br&gt;
+
+ &lt;li&gt;&lt;strong&gt;Shared weights:&lt;/strong&gt;In CNNs, each filter is replicated across the entire visual field. These replicated units share the same parameterization (weight vector and bias) and form a feature map. This means that all the neurons in a given convolutional layer detect exactly the same feature. Replicating units in this way allows for features to be detected regardless of their position in the visual field, thus constituting the property of translation invariance.&lt;/li&gt; &lt;br&gt;
+ &lt;
+ 
+
+ Together, these properties allow convolutional neural networks to achieve better generalization on vision problems. Weight sharing also helps by dramatically reducing the number of free parameters being learnt, thus lowering the memory requirements for running the network. Decreasing the memory footprint allows the training of larger, more powerful networks.&lt;br&gt;
+ &lt;/ul&gt;
+ 
+
+
+&lt;li&gt;&lt; &lt;strong&gt; Building blocks&lt;/strong&gt;&lt;br&gt;
+
+  A CNN architecture is formed by a stack of distinct layers that transform the input volume into an output volume (e.g. holding the class scores) through a differentiable function. A few distinct types of layers are commonly used. We discuss them further below:&lt;br&gt;
+
+ 
+ &lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;Convolutional layer&lt;/strong&gt;&lt;br&gt;
+
+ The Convolutional layer is the core building block of a CNN.The layer's parameters consist of a set of learnable filters (or kernels), which have a small receptive field, but extend through the full depth of the input volume. During the forward pass, each filter is convolved across the width and height of the input volume, computing the dot product between the entries of the filter and the input and producing a 2-dimensional activation map of that filter. As a result, the network learns filters that activate when they see some specific type of feature at some spatial position in the input.&lt;br&gt;
+&lt;br&gt;
+Stacking the activation maps for all filters along the depth dimension forms the full output volume of the convolution layer. Every entry in the output volume can thus also be interpreted as an output of a neuron that looks at a small region in the input and shares parameters with neurons in the same activation map.&lt;/li&gt;&lt;br&gt;
+ 
+
+ &lt;li&gt;&lt;strong&gt;Local connectivity&lt;/strong&gt;&lt;br&gt;
+
+ When dealing with high-dimensional inputs such as images, it is impractical to connect neurons to all neurons in the previous volume because such a network architecture does not take the spatial structure of the data into account. Convolutional networks exploit spatially local correlation by enforcing a local connectivity pattern between neurons of adjacent layers: each neuron is connected to only a small region of the input volume. The extent of this connectivity is a hyperparameter called the receptive field of the neuron. The connections are local in space (along width and height), but always extend along the entire depth of the input volume. Such an architecture ensures that the learnt filters produce the strongest response to a spatially local input pattern.&lt;/li&gt;&lt;br&gt;
+
+
+&lt;li&gt;&lt;strong&gt;Spatial arrangement&lt;/strong&gt;&lt;br&gt;
+
+Three hyperparameters control the size of the output volume of the convolutional layer: the depth, stride and zero-padding.&lt;/li&gt;&lt;br&gt;
+     
+     &lt;ul&gt;
+     
+      &lt;li&gt;&lt;strong&gt;Depth&lt;/strong&gt;of the output volume controls the number of neurons in the layer that connect to the same region of the input volume. All of these neurons will learn to activate for different features in the input. For example, if the first Convolutional Layer takes the raw image as input, then different neurons along the depth dimension may activate in the presence of various oriented edges, or blobs of color.&lt;/li&gt;&lt;br&gt;
+      &lt;li&gt;&lt;strong&gt;Stride&lt;/strong&gt;controls how depth columns around the spatial dimensions (width and height) are allocated. When the stride is 1, a new depth column of neurons is allocated to spatial positions only 1 spatial unit apart. This leads to heavily overlapping receptive fields between the columns, and also to large output volumes. Conversely, if higher strides are used then the receptive fields will overlap less and the resulting output volume will have smaller dimensions spatially.&lt;/li&gt;&lt;br&gt;
+      &lt;li&gt;Sometimes it is convenient to pad the input with zeros on the border of the input volume. The size of this &lt;strong&gt;zero-padding&lt;/strong&gt; is a third hyperparameter. Zero padding allows to control the spatial size of the output volumes. In particular, sometimes it is desirable to exactly preserve the spatial size of the input volume.&lt;/li&gt;&lt;br&gt;
+          
+     &lt;/ul&gt;
+The spatial size of the output volume can be computed as a function of the input volume size W, the receptive field size of the Conv Layer neurons F, the stride with which they are applied S, and the amount of zero padding P used on the border. The formula for calculating how many neurons "fit" in a given volume is given by (W-F+2P)/S + 1. If this number is not an integer, then the strides are set incorrectly and the neurons cannot be tiled to fit across the input volume in a symmetric way. In general, setting zero padding to be P = (F-1)/2 when the stride is S=1 ensures that the input volume and output volume will have the same size spatially.
+
+
+
+&lt;li&gt;&lt;strong&gt;Parameter Sharing&lt;/strong&gt;&lt;br&gt;
+
+Parameter sharing scheme is used in Convolutional Layers to control the number of free parameters. It relies on one reasonable assumption: That if one patch feature is useful to compute at some spatial position, then it should also be useful to compute at a different position. In other words, denoting a single 2-dimensional slice of depth as a depth slice, we constrain the neurons in each depth slice to use the same weights and bias.&lt;/li&gt;&lt;&lt;br&gt;
+
+
+
+&lt;li&gt;&lt;strong&gt;Pooling layer&lt;/strong&gt;&lt;br&gt;
+
+Another important concept of CNNs is pooling, which is a form of non-linear down-sampling. Pooling partitions the input image into a set of non-overlapping rectangles and, for each such sub-region, outputs the maximum. &lt;/li&gt;&lt;br&gt;
+
+
+&lt;li&gt;&lt;strong&gt;ReLU layer&lt;/strong&gt;&lt;br&gt;
+
+ ReLU is the abbreviation of Rectified Linear Units. This is a layer of neurons that applies the non-saturating activation function f(x)=max(0,x).It increases the nonlinear properties of the decision function and of the overall network without affecting the receptive fields of the convolution layer. &lt;/li&gt;&lt;br&gt;
+ 
+
+&lt;li&gt;&lt;strong&gt;Fully Connected layer&lt;/strong&gt;&lt;br&gt;
+
+Finally, after several convolutional and max pooling layers, the high-level reasoning in the neural network is done via fully connected layers. Neurons in a fully connected layer have full connections to all activations in the previous layer, as seen in regular Neural Networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.&lt;/li&gt;&lt;br&gt;
+
+
+&lt;li&gt;&lt;strong&gt;Loss layer&lt;/strong&gt;&lt;br&gt;
+
+The loss layer specifies how the network training penalizes the deviation between the predicted and true labels and is normally the last layer in the network. Various loss functions appropriate for different tasks may be used there. Softmax loss is used for predicting a single class of K mutually exclusive classes. Sigmoid cross-entropy loss is used for predicting K independent probability values in [0,1]. Euclidean loss is used for regressing to real-valued labels [-\infty,\infty].&lt;/li&gt;&lt;br&gt;
+ &lt;/ul&gt;
+
+&lt;/ol&gt;
+
+    	 
+
+    	 </help>   	
+
+    </operator>
+
+
+
+	<operator>
+
+		<key>rbm_layer</key>
+
+		<name>RBM Layer</name>
+		<synopsis>This operator stands for one layer of the Neural Network.It does not do any computation.The main function of this operator is to demonstrate the structure of a neural net, to store and pass the parameters.</synopsis>
+		<help>A restricted Boltzmann machine (RBM) is a generative stochastic artificial neural network that can learn a probability distribution over its set of inputs.&lt;br&gt;&lt;br&gt;
+	RBMs were initially invented under the name Harmonium by Paul Smolensky in 1986, but only rose to prominence after Geoffrey Hinton and collaborators invented fast learning algorithms for them in the mid-2000s. RBMs have found applications in dimensionality reduction,classification,collaborative filtering, feature learning and topic modelling.They can be trained in either supervised or unsupervised ways, depending on the task.	&lt;br&gt;
+		&lt;br&gt;
+		RBM can be used in deep learning networks.In particular,deep belief networks can be formed by "stacking" RBMs and optionally fine-tuning the resulting deep network with gradient descent and backpropagation.
+		</help>
+		
+		
+		
+
+	</operator>
+
+
+
+	<operator>
+
+		<key>dense_layer</key>
+
+		<name>Dense Layer</name>
+		<synopsis>This operator stands for a general layer of the Neural Network.It does not do any computation.The main function of this operator is to demonstrate the structure of a neural net, to store and pass the parameters. </synopsis>
+		<help>Dense layer is a simple/general layer in neural network. </help>
+
+	</operator>
+
+
+
+	<operator>
+
+		<key>output_layer</key>
+
+		<name>Output Layer</name>
+		<synopsis>This operator stands for a general layer of the Neural Network.It does not do any computation.The main function of this operator is to demonstrate the structure of a neural net, to store and pass the parameters.</synopsis>
+		<help>Output layer is the last layer of a Neural Network.&lt;br&gt;
+		
+		
+		</help>
+
+	</operator>
+
+
+
+	<operator>
+
+		<key>convolutional_layer</key>
+
+		<name>Convolutional Layer</name>
+		<synopsis>This operator stands for one layer of the Convolutional Neural Network.It does not do any computation.The main function of this operator is to demonstrate the structure of a neural net, to store and pass the parameters.</synopsis>
+		<help>Convolutional layer is the special layer for Convolutional Neural Network.Looking more informations about the Convolutional layer, please  refer to the documentation of the Conluvational Neural Network operator.</help>
+
+	</operator>
+
+
+
+	<operator>
+
+		<key>subsampling_layer</key>
+
+		<name>Subsampling Layer</name>
+		<synopsis>This operator stands for a layer of the  Convolutional Neural Network.It does not do any computation.The main function of this operator is to demonstrate the structure of a neural net, to store and pass the parameters.</synopsis>
+		<help>Subsampling layer is the special layer for the Convolutional Neural Network.Looking more informations about the Subsampling layer, please  refer to the documentation of the Conluvational Neural Network operator.</help>
+
+	</operator>
+
+
+
+	<operator>
+
+		<key>word_2_vec</key>
+
+		<name>Word2Vec</name>
+	    <synopsis>This operator turns text to a numerical form that deep nets can understand. </synopsis>
+    	 <help> Word2vec is a two-layer neural net that processes text. Its input is a text corpus and its output is a set of vectors: feature vectors for words in that corpus. While Word2vec is not a deep neural network, it turns text into a numerical form that deep nets can understand.&lt;br&gt;
+    	 &lt;br&gt;
+ Word2vec creates vectors that are distributed numerical representations of word features, features such as the context of individual words. It does so without human intervention.The output of the Word2vec neural net is a vocabulary in which each item has a vector attached to it, which can be fed into a deep-learning net or simply queried to detect relationships between words. &lt;br&gt;
+ &lt;br&gt;
+ Word2vec is similar to an autoencoder, encoding each word in a vector, but rather than training against the input words through reconstruction, as a restricted Boltzmann machine does, word2vec trains words against other words that neighbor them in the input corpus.Word2vec relies on either skip-grams or continuous bag of words (CBOW) to create neural word embeddings. It was created by a team of researchers led by Tomas Mikolov at Google. The algorithm has been subsequently analysed and explained by other researchers.	</help>
+		
+
+	</operator>
+
+
+
+</operatorHelp>
