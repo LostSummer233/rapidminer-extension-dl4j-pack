@@ -129,4 +129,9 @@ public class SubSamplingLayer extends AbstractLayer {
 			return null;
 		}
 	}
+	
+	@Override
+	public String getLayerName() {
+		return name;
+	}
 }

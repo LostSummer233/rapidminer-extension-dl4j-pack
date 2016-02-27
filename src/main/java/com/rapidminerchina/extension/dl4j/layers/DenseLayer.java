@@ -230,4 +230,9 @@ public class DenseLayer extends AbstractLayer{
 			return null;
 		}
 	}
+	
+	@Override
+	public String getLayerName() {
+		return name;
+	}
 }

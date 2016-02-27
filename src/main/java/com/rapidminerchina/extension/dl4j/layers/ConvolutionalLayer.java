@@ -361,15 +361,21 @@ public class ConvolutionalLayer extends AbstractLayer {
 	public int[] getOutSize(int... inSize) throws UndefinedParameterError{
 		
 		generateBuilder();
-		if (inSize.length != 2) {
+		if (inSize.length != 2 || (inSize[0]+2*padding[0]) < size[0]+stride[0] 
+						|| (inSize[1]+2*padding[1]) < size[1]+stride[1]) {
 			return new int[0];
 		} else {
 			int[] n = new int [2];
 			for (int i=0; i<2; i++){
-				n[i] = (int) Math.floor((inSize[i] + 2 * padding[i] - size[i])/stride[i]);
+				n[i] = 1 + (int) Math.floor((inSize[i] + 2 * padding[i] - size[i])/stride[i]);
 			}
 			return n;
 		}
 		
+	}
+
+	@Override
+	public String getLayerName() {
+		return name;
 	}
 }

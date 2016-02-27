@@ -236,4 +236,8 @@ public class OutputLayer extends AbstractLayer {
 		return 0;
 	}
 	
+	@Override
+	public String getLayerName() {
+		return name;
+	}
 }

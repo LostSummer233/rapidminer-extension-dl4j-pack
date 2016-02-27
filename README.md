@@ -1,20 +1,27 @@
-RapidMiner Extension Template
+RapidMiner Extension - DL4J Extension Pack
 =============================
+Version: 0.6.0-beta 
+------------------------------------
 
-A template project for creating a RapidMiner Studio extension. 
+This is an under-develop extension of RapidMiner supported by RapidMiner China.
+This plug-in integrates RaoidMiner with deep learning features by using the third party library deeplearning4j aka. DL4J,
+where DL4J is an java-based, open source deeplearning lib developed by Skymind. 
 
 ### Prerequisite
-* Requires Gradle 2.3+ (get it [here](http://gradle.org/installation) or use the Gradle wrapper shipped with this template)
+* The extension has all it's libraries wrapped inside, thus the only prerequisite to use it is to have RapidMiner 7.0 or above installed.
 
-### Getting started
-1. Clone the extension template
+### Features
 
-2. Change the extension settings in _build.gradle_ (e.g. replace 'Template' by the desired extension name)
+The current version contains operators implementing thr0ee kinds of neural network models, namely:
 
-3. Initialize the extension project by executing the _initializeExtensionProject_ Gradle task (e.g. via 'gradlew initializeExtensionProject')
+Multi-layered Neural Network: 
+This is the general type of neural network.
+Apply to general labeled numerical example set and could be used for general purpose.
 
-4. Add an extension icon by placing an image named "icon.png" in  _src/main/resources/META-INF/_. 
+Convultional Neural Network (CNN):
+Particularly developed for image process but also works on certain general tasks.
+Apply to converted labeled image sources, as well as certain general labeled numerical example set.
 
-5. Build and install your extension by executing the _installExtension_ Gradle task 
-
-6. Start RapidMiner Studio and check whether your extension has been loaded
+Word2Vec: 
+For text process only. 
+Works on .txt files which contains raw sentences, currently, only English is supported.

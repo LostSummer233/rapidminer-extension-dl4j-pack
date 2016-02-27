@@ -1,5 +1,6 @@
 package com.rapidminerchina.extension.dl4j.layers;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorDescription;
 import com.rapidminer.operator.OperatorException;
@@ -46,5 +47,7 @@ public abstract class AbstractLayer extends Operator{
 	}
 	
 	public abstract int getNumNodes() throws UndefinedParameterError;
+	
+	public abstract String getLayerName();
 	
 }

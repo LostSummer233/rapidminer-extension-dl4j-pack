@@ -372,4 +372,9 @@ public class RBMLayer extends AbstractLayer{
 			return null;
 		}
 	}
+	
+	@Override
+	public String getLayerName() {
+		return name;
+	}
 }

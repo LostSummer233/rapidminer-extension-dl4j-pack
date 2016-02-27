@@ -1,5 +1,8 @@
 package com.rapidminerchina.extension.dl4j.learners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
@@ -87,6 +90,7 @@ public class SimpleNeuralNetwork extends AbstractDLModelLearner {
 		
 		ListBuilder listBuilder = configBuilder.list(structure.size());
 		
+		List<String> layerNames = new ArrayList<String>();
 		int inSize = exampleSet.getAttributes().size();
 		
 		for (int i=0; i<structure.size(); i++){
@@ -98,6 +102,8 @@ public class SimpleNeuralNetwork extends AbstractDLModelLearner {
 
 					listBuilder.layer(i,((OutputLayer)layer).getLayer(inSize,
 							exampleSet.getAttributes().getLabel().getMapping().getValues().size()));
+					layerNames.add(layer.getLayerName());
+					
 				} else {
 					throw new OperatorException("Please put an output layer in the end of the neural network");
 				}
@@ -111,15 +117,17 @@ public class SimpleNeuralNetwork extends AbstractDLModelLearner {
 							+ this.getName() + ", please use Convolutional Neural Network, instead.");
 				}
 				
+				
 				listBuilder.layer(i,layer.getLayer(inSize));
 				inSize = layer.getNumNodes();
+				layerNames.add(layer.getLayerName());
 				
 			}
 		}
 		
         // construct the configuration information and train the model
 	    MultiLayerConfiguration config = listBuilder.build();
-		model.train(exampleSet, config, shuffle, normalize);
+		model.train(exampleSet, config, shuffle, normalize, layerNames);
 		return model;
 	}
 

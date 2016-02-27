@@ -1,5 +1,6 @@
 package com.rapidminerchina.extension.dl4j.learners;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -134,6 +135,7 @@ public class ConvolutionalNeuralNetwork extends AbstractDLModelLearner {
 		
 		ListBuilder listBuilder = configBuilder.list(structure.size());
 		
+		List<String> layerNames = new ArrayList<String>();
 		int inDepth = depth;
 		int[] inSize = new int[]{width, height};
 		
@@ -158,6 +160,8 @@ public class ConvolutionalNeuralNetwork extends AbstractDLModelLearner {
 
 					listBuilder.layer(i,((OutputLayer)layer).getLayer(false,
 							exampleSet.getAttributes().getLabel().getMapping().getValues().size()));
+					layerNames.add(layer.getLayerName());
+					
 				} else {
 					throw new OperatorException("Please ensure an output layer in the end of the "
 							+ "convolutional neural network "
@@ -178,16 +182,19 @@ public class ConvolutionalNeuralNetwork extends AbstractDLModelLearner {
 						+ ", please check and make sure that "
 						+ "the size of input W, the padding P, the stride S and the "
 						+ "size of receptive field F satisfies the fomula "
-						+ "2P + W = n*S + F, where with integer n at least 1"
+						+ "2P + W >= n*S + F, with integer n at least 1"
 						+ "in both horizental and vertical directions");
 					}
 					
 					listBuilder.layer(i,layer.getLayer(inDepth));
 					inDepth = layer.getNumNodes();
 					inSize = outSize;
+					layerNames.add(layer.getLayerName());
 					
 				} else {
+					
 					listBuilder.layer(i, layer.getLayer());
+					layerNames.add(layer.getLayerName());
 				}
 			}
 		}
@@ -198,7 +205,7 @@ public class ConvolutionalNeuralNetwork extends AbstractDLModelLearner {
 		// construct the configuration information and train the model
 		
 	    MultiLayerConfiguration config = listBuilder.build();
-		model.train(exampleSet, config, shuffle, normalize);
+		model.train(exampleSet, config, shuffle, normalize,layerNames);
 		
 		return model;
 	}

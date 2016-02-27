@@ -1,5 +1,6 @@
 package com.rapidminerchina.extension.dl4j.learners;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -169,29 +170,34 @@ public abstract class AbstractDLModelLearner extends OperatorChain implements Ca
 		types.add(new ParameterTypeInt(
 				PARAMETER_ITERATION,
 				"The number of iterations used for the neural network training.", 
-				1, Integer.MAX_VALUE, 500));
+				1, Integer.MAX_VALUE, 500,
+				false));
 
 		types.add(new ParameterTypeDouble(
 				PARAMETER_LEARNING_RATE,
 				"The learning rate determines by how much we change the weights at each step. May not be 0.",
-				Double.MIN_VALUE, 1.0d, 0.9));
+				Double.MIN_VALUE, 1.0d, 0.9,
+				false));
 		
 		types.add(new ParameterTypeDouble(
 				PARAMETER_DECAY,
 				"The rate that learning rate decreases",
-				0.0d, 1.0d, 0.99d));
+				0.0d, 1.0d, 0.99d,
+				false));
 		
 		types.add(new ParameterTypeDouble(
 				PARAMETER_MOMENTUM,
 				"The momentum simply adds a fraction of the previous weight update to the current one (prevent local maxima and smoothes optimization directions).",
-				0.0d, 1.0d, 0.2d));
+				0.0d, 1.0d, 0.2d,
+				false));
 
 		types.add(new ParameterTypeCategory(
 				PARAMETER_OPTIMIZATION_ALGORITHM,
 				"The opimization function",
 				OPTIMIZE_ALGORITHM_NAMES,
-				1));
-		
+				1,
+				false));
+	
 		// for expert features
 		type = new ParameterTypeBoolean(
 				PARAMETER_SHUFFLE,

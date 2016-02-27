@@ -3,7 +3,14 @@ package com.rapidminerchina.extension.dl4j.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.poifs.storage.ListManagedBlock;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
+import org.deeplearning4j.nn.conf.layers.Layer;
+import org.deeplearning4j.nn.layers.OutputLayer;
+import org.deeplearning4j.nn.layers.convolution.ConvolutionLayer;
+import org.deeplearning4j.nn.layers.convolution.subsampling.SubsamplingLayer;
+import org.deeplearning4j.nn.layers.feedforward.dense.DenseLayer;
+import org.deeplearning4j.nn.layers.feedforward.rbm.RBM;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.DataSet;
@@ -18,6 +25,7 @@ import com.rapidminer.example.table.NominalMapping;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.learner.*;
 import com.rapidminerchina.extension.dl4j.DL4JConvert;
+
 
 
 /**
@@ -49,6 +57,11 @@ import com.rapidminerchina.extension.dl4j.DL4JConvert;
  */
 @SuppressWarnings("serial")
 public class MultiLayerNetModel extends PredictionModel{
+	
+	/**
+	 * The list of name of each layer.
+	 */
+	private List<String> names;
 	
 	/**
 	 * The multilayer network model.
@@ -298,8 +311,10 @@ public class MultiLayerNetModel extends PredictionModel{
 	 * This method is only used if the configuration of the model is not defined (as null) when the model is constructed.
 	 * This method may be deprecated later
 	 */
-	public void train(ExampleSet exampleSet, MultiLayerConfiguration configuration, boolean shuffle, boolean normalization){
+	public void train(ExampleSet exampleSet, MultiLayerConfiguration configuration, 
+			boolean shuffle, boolean normalization, List<String> layerNames){
 		this.configuration = configuration;
+		this.names = layerNames;
 		train(exampleSet, shuffle, normalization);
 	}
 	
@@ -314,7 +329,90 @@ public class MultiLayerNetModel extends PredictionModel{
 	
 	
 	public String toString(){
-		return "Multi-layered Neural Network:\n" + model.toString();
+		
+		String result = "Neural Network:";
+		result += "\n ===================================\n";
+		
+		int numLayer = model.getnLayers();
+		
+		configuration.toString();
+		
+		for (int i=0; i<numLayer; i++){
+			org.deeplearning4j.nn.api.Layer layer = model.getLayer(i);
+			// don't know why there is no API like getActivationFunction()......
+//			String activation = model.getLayer(i)
+			
+//			result += "\n" + layer.paramTable().get("W").toString();
+//			result += "\n";
+			
+			
+			
+			if (layer.getClass() == DenseLayer.class){
+				
+				result += "\nLayer " + i + ": " + names.get(i) + " (Dense Layer)" ;
+				result += "\n ------------------------------------";
+				INDArray array = layer.paramTable().get("W");
+				for (int j=0; j<array.shape()[0]; j++){
+					result += "\n" + array.getRow(j).toString();
+				}
+				result += "\n" + model.getLayer(i).paramTable().get("b");
+				result += "\n";
+				
+			} else if (layer.getClass() == OutputLayer.class){
+				
+				result += "\nLayer " + i + ": " + names.get(i) + " (Output Layer)";
+				result += "\n ------------------------------------";
+				INDArray array = layer.paramTable().get("W");
+				for (int j=0; j<array.shape()[0]; j++){
+					result += "\n" + array.getRow(j).toString();
+				}
+				result += "\n" + model.getLayer(i).paramTable().get("b");
+				result += "\n";
+				
+			} else if (layer.getClass() == RBM.class){
+				
+				result += "\nLayer " + i + ": " + names.get(i) + " (RBM Layer)";
+				result += "\n ------------------------------------";
+				INDArray array = layer.paramTable().get("W");
+				for (int j=0; j<array.shape()[0]; j++){
+					result += "\n" + array.getRow(j).toString();
+				}
+				result += "\n" + model.getLayer(i).paramTable().get("b");
+				result += "\n";
+				
+			} else if (layer.getClass() == SubsamplingLayer.class){
+				
+				result += "\nLayer " + i + ": " + names.get(i) + " (Subsampling Layer)";
+				result += "\n ------------------------------------";
+				result += "\n";
+				
+			} else if (layer.getClass() == ConvolutionLayer.class){
+				
+				result += "\nLayer " + i + ": " + names.get(i) + " (Convolutional Layer)";
+				result += "\n ------------------------------------";
+				INDArray array3D = layer.paramTable().get("W");
+				
+//				int depth = array3D.shape()[2];
+				
+				result += "\n" + array3D.toString();
+				
+//				for (int d = 0; d<depth; d++){
+//					result += "\n    Filter " + d;
+//					INDArray array2D = array3D.tensorssAlongDimension(dimension);
+//					
+//					for (int j=0; j<array2D.shape()[0]; j++){
+//						result += "\n" + array2D.getRow(j).toString();
+//					}
+//
+//					result += "\n" + model.getLayer(i).paramTable().get("b").getRow(d);					
+//				}
+				
+				result += "\n";
+				
+			}
+		}
+		
+		return result;
 	}
-
+	
 }
