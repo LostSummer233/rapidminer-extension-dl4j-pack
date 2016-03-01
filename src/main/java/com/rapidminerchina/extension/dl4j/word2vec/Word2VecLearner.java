@@ -49,7 +49,6 @@ public class Word2VecLearner extends Operator {
 	public static final String PARAMETER_LEARNING_RATE = "learning_rate";
 	public static final String PARAMETER_MIN_WORD_FREQUENCY = "min_word_frequency";
 	public static final String PARAMETER_ITERATION = "iteration";
-	public static final String PARAMETER_HIDDEN_LAYER_SIZE = "hidden_layer_size";
 	public static final String PARAMETER_STOP_WORDS = "stop_words";
 	public static final String PARAMETER_WINDOW_SIZE = "window_size";
 	public static final String PARAMETER_USE_LOCAL_RANDOM_SEED = "use_local_random_seed";
@@ -111,12 +110,6 @@ public class Word2VecLearner extends Operator {
 				PARAMETER_ITERATION,
 				"The number of training iterations on the raw sentances.",
 				1,Integer.MAX_VALUE,1
-				));
-		
-		types.add(new ParameterTypeInt(
-				PARAMETER_HIDDEN_LAYER_SIZE,
-				"The number of nodes in the hidden layer.",
-				1,Integer.MAX_VALUE,100
 				));
 		
 		type = new ParameterTypeEnumeration(
@@ -186,7 +179,6 @@ public class Word2VecLearner extends Operator {
 		double lr = getParameterAsDouble(PARAMETER_LEARNING_RATE);
 		int minWordFrequency = getParameterAsInt(PARAMETER_MIN_WORD_FREQUENCY);
 		int numIteration = getParameterAsInt(PARAMETER_ITERATION);
-		int hiddenLayer = getParameterAsInt(PARAMETER_HIDDEN_LAYER_SIZE);
 		
 		String[] stopWords = ParameterTypeEnumeration.transformString2Enumeration(
 				getParameterAsString(PARAMETER_STOP_WORDS));
@@ -223,7 +215,7 @@ public class Word2VecLearner extends Operator {
         Word2Vec vec = new Word2Vec.Builder()
                 .minWordFrequency(minWordFrequency)
                 .iterations(numIteration)
-                .layerSize(hiddenLayer)
+                .layerSize(vectorLength)
                 .lookupTable(table)
                 .epochs(1)
                 .stopWords(stopWordsList)
