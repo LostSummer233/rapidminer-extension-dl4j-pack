@@ -18,7 +18,7 @@ Multi-layered Neural Network:
 This is the general type of neural network.
 Apply to general labeled numerical example set and could be used for general purpose.
 
-Convultional Neural Network (CNN):
+Convolutional Neural Network (CNN):
 Particularly developed for image process but also works on certain general tasks.
 Apply to converted labeled image sources, as well as certain general labeled numerical example set.
 
